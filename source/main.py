@@ -2,7 +2,7 @@ import pygame
 from constants import *
 from player import Player
 
-def statusText():    
+def statusText():
     print("Starting asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
@@ -18,11 +18,12 @@ def runGameLoop():
     clock = pygame.time.Clock()
     dt = 0
 
-    while True:
+    while True: # <- Game Loop
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
 
+        player.update(dt)
         drawScreen(player)
         dt = clock.tick(60)
 
