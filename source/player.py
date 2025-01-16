@@ -17,6 +17,7 @@ class Player(CircleShape):
         return [a, b, c]
 
     def draw(self, screen):
+        print("-", end="")
         pygame.draw.polygon(screen, (255,255,255), self.triangle(), width=2)
 
     def rotate(self, dt):
