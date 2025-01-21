@@ -16,7 +16,7 @@ def configureContainers():
     AsteroidField.containers = updateable
     Shot.containers = (shots, updateable, drawable)
 
-    return updateable, drawable, asteroids
+    return updateable, drawable, asteroids, shots
 
 def updateState(dt, updateable):
     for object in updateable:
@@ -27,13 +27,17 @@ def drawState(screen, drawable):
     for object in drawable:
         object.draw(screen)
 
-def detectCollisions(player, asteroids):
+def detectCollisions(player, asteroids, shots):
     for asteroid in asteroids:
         if asteroid.isCollidingWith(player):
             print("Game over!")
             exit(0)
+        for shot in shots:
+            if asteroid.isCollidingWith(shot):
+                shot.kill()
+                asteroid.kill()
 
-def runGameLoop(updateable, drawable, asteroids):
+def runGameLoop(updateable, drawable, asteroids, shots):
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     field = AsteroidField()
@@ -47,14 +51,14 @@ def runGameLoop(updateable, drawable, asteroids):
                 return
         updateState(dt, updateable)
         drawState(screen, drawable)
-        detectCollisions(player, asteroids)
+        detectCollisions(player, asteroids, shots)
         pygame.display.flip()
         dt = clock.tick(60) / 1000
  
 def main():
     pygame.init()
-    updateable, drawable, asteroids = configureContainers()
-    runGameLoop(updateable, drawable, asteroids)
+    updateable, drawable, asteroids, shots = configureContainers()
+    runGameLoop(updateable, drawable, asteroids, shots)
 
 if __name__ == "__main__":
     main()
