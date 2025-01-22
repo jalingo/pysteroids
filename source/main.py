@@ -35,7 +35,7 @@ def detectCollisions(player, asteroids, shots):
         for shot in shots:
             if asteroid.isCollidingWith(shot):
                 shot.kill()
-                asteroid.kill()
+                asteroid.split()
 
 def runGameLoop(updateable, drawable, asteroids, shots):
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
